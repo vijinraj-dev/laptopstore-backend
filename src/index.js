@@ -15,10 +15,12 @@ const app = express();
 
 // ── Security & Parsing ───────────────────────────────────────────────────────
 app.use(helmet());
+
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
+  origin: '*',
   credentials: true,
 }));
+
 app.use(express.json({ limit: '1mb' }));
 app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
 
