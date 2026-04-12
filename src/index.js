@@ -15,9 +15,10 @@ const app = express();
 
 // ── Security & Parsing ───────────────────────────────────────────────────────
 app.use(helmet());
+const allowedOrigins = ['http://localhost:5173', 'http://localhost:5174'];
 
 app.use(cors({
-  origin: '*',
+  origin: allowedOrigins,
   credentials: true,
 }));
 
