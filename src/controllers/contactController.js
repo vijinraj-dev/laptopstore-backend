@@ -9,7 +9,7 @@ function createTransporter() {
   }
   return nodemailer.createTransport({
     host,
-    port: parseInt(process.env.SMTP_PORT || '587', 10),
+    port: parseInt(process.env.SMTP_PORT || '465', 10),
     secure: process.env.SMTP_SECURE === 'true',
     auth: { user, pass },
   });
