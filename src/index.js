@@ -15,7 +15,7 @@ const app = express();
 
 // ── Security & Parsing ───────────────────────────────────────────────────────
 app.use(helmet());
-const allowedOrigins = ['http://localhost:5173', 'https://laptopstore-filter.vercel.app/'];
+const allowedOrigins = ['http://localhost:5173', 'https://laptopstore-filter.vercel.app/', 'https://laptopstore-filter.vercel.app'];
 
 app.use(cors({
   origin: allowedOrigins,
