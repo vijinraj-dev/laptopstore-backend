@@ -6,7 +6,7 @@ async function sendInquiry(req, res, next) {
   try {
     const { name, phone, email, productName } = req.body;
 
-    const to = process.env.CONTACT_EMAIL_TO || "vijin1697@gmail.com";
+    const to = "vijin1697@gmail.com";
 
     const subject = `[LaptopStore] Inquiry: ${productName}`;
 
