@@ -1,49 +1,20 @@
-const nodemailer = require('nodemailer');
+const { Resend } = require("resend");
 
-function createTransporter() {
-  const host = process.env.SMTP_HOST || 'smtp.gmail.com';
-  const user = process.env.SMTP_USER || 'vijin.raj@ibosoninnov.com';
-  const pass = process.env.SMTP_PASS || 'srkp orqe ebkv ctxt';
-  if (!host || !user || !pass) {
-    return null;
-  }
-  return nodemailer.createTransport({
-    host,
-    port: parseInt(process.env.SMTP_PORT || '465', 10),
-    secure: process.env.SMTP_SECURE === 'true',
-    auth: { user, pass },
-  });
-}
+const resend = new Resend(process.env.RESEND_API_KEY  || 're_HQoLLLXX_K152PzpCKYtUS1ZzanQz74eY');
 
 async function sendInquiry(req, res, next) {
   try {
     const { name, phone, email, productName } = req.body;
-    const to = process.env.CONTACT_EMAIL_TO || 'vijin1697@gmail.com';
-    const from = process.env.SMTP_FROM || process.env.SMTP_USER;
 
-    const transporter = createTransporter();
-    if (!transporter) {
-      return res.status(503).json({
-        error:
-          'Email delivery is not configured. Set SMTP_HOST, SMTP_USER, and SMTP_PASS on the server.',
-      });
-    }
+    const to = process.env.CONTACT_EMAIL_TO || "vijin1697@gmail.com";
 
     const subject = `[LaptopStore] Inquiry: ${productName}`;
-    const text = [
-      'New product inquiry from the laptop store website.',
-      '',
-      `Name: ${name}`,
-      `Phone: ${phone}`,
-      `Email: ${email || '(not provided)'}`,
-      `Product (laptop): ${productName}`,
-    ].join('\n');
 
     const safe = (s) =>
       String(s)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;');
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
 
     const html = `
       <div style="font-family:system-ui,sans-serif;line-height:1.5;color:#18181b;max-width:520px">
@@ -57,21 +28,17 @@ async function sendInquiry(req, res, next) {
       </div>
     `;
 
-    const mail = {
-      from: `"LaptopStore" <${from}>`,
+    await resend.emails.send({
+      from: "onboarding@resend.dev", // testing sender
       to,
       subject,
-      text,
       html,
-    };
-    if (email) {
-      mail.replyTo = email;
-    }
+      reply_to: email || undefined, // user reply panna use aagum
+    });
 
-    await transporter.sendMail(mail);
-
-    res.json({ ok: true, message: 'Your message was sent successfully.' });
+    res.json({ ok: true, message: "Your message was sent successfully." });
   } catch (err) {
+    console.error(err);
     next(err);
   }
 }
