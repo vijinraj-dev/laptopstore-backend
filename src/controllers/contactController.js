@@ -29,7 +29,7 @@ async function sendInquiry(req, res, next) {
     `;
 
     await resend.emails.send({
-      from: "onboarding@resend.dev", // testing sender
+      from: "vijin1697@gmail.com", // testing sender
       to,
       subject,
       html,
