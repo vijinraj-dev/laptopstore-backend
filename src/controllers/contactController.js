@@ -1,6 +1,6 @@
 const { Resend } = require("resend");
 
-const resend = new Resend(process.env.RESEND_API_KEY  || 're_HQoLLLXX_K152PzpCKYtUS1ZzanQz74eY');
+const resend = new Resend(process.env.RESEND_API_KEY  || 're_d6gBwuxd_NF49gxDSdZuVENQhBefp4AgF');
 
 async function sendInquiry(req, res, next) {
   try {
