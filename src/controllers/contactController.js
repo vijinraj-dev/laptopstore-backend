@@ -6,7 +6,7 @@ async function sendInquiry(req, res, next) {
   try {
     const { name, phone, email, productName } = req.body;
 
-    const to = "vijin.raj@ibosoninnov.com";
+    const to = "sachin.thangaraj.p@gmail.com";
 
     const subject = `[LaptopStore] Inquiry: ${productName}`;
 
