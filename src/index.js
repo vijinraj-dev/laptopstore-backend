@@ -15,11 +15,11 @@ const app = express();
 
 // ── Security & Parsing ───────────────────────────────────────────────────────
 app.use(helmet());
-const allowedOrigins = ['https://laptopstore-admin.vercel.app/','https://laptopstore-admin.vercel.app', 'https://laptopstore-filter-oqqq.vercel.app/', 'https://laptopstore-filter-oqqq.vercel.app'];
+const allowedOrigins = ['https://freewifitech-admin.vercel.app/','https://freewifitech-admin.vercel.app', 'https://freewifitech.vercel.app/', 'https://freewifitech.vercel.app'];
 
 app.use(cors({
   origin: allowedOrigins,
-  credentials: true,
+  credentials: true,  
 }));
 
 app.use(express.json({ limit: '1mb' }));
